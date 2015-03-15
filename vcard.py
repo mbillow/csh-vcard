@@ -99,12 +99,14 @@ def format_card(user):
         print user.givenName + " does not have any blogs."
 
     if user.github:
-        vcard += "item" + str(item_counter) + ".URL;type=pref:https://www.github.com/" + user.github \
+        github_url = user.github.split("/")
+        vcard += "item" + str(item_counter) + ".URL;type=pref:https://www.github.com/" + github_url[len(github_url)-1] \
             + "\nitem" + str(item_counter) + ".X-ABLabel:github\n"
         item_counter += 1
     if user.twitter:
-        vcard += "item" + str(item_counter) + ".URL;type=pref:https://www.twitter.com/" + user.twitter \
-            + "\nitem" + str(item_counter) + ".X-ABLabel:twitter\n"
+        twitter_url = user.twitter.split("/")
+        vcard += "item" + str(item_counter) + ".URL;type=pref:https://www.twitter.com/"  \
+            + twitter_url[len(twitter_url)] + "\nitem" + str(item_counter) + ".X-ABLabel:twitter\n"
     if user.jpegPhoto == "" or user.jpegPhoto is None:
         vcard += "PHOTO;TYPE=JPEG;ENCODING=b:" + gravatar_base64(listify(user.mail)[0]) + "\nEND:VCARD"
     else:
